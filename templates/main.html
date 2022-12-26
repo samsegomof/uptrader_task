@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load utils %}
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+
+<div style="display: flex; flex-direction: row">
+    {% for category in categories %}
+        {% if category.parent == None %}
+            <p style="margin: 10px 20px"><a
+                    href="{% url 'menu_detail' category.slug %}">{{ category.name }}</a></p>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% include 'children.html' %}
+</body>
+</html>

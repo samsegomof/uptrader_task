@@ -1,0 +1,23 @@
+{% load utils %}
+<div style="display: flex; flex-direction: row">
+        {% for child in categories %}
+            {% if child.parent.slug == query_path|first %}
+                <p style="margin: 10px 20px"><a
+                        href="{% url 'menu_detail' category_path|add_to_url:child.slug %}">{{ child.name }}</a></p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% if query_path|length > 1 %}
+    {% with query_path=query_path|del_first_item %}
+        {% for category in categories %}
+            {% if category.slug == query_path|first  %}
+                {% with category_path=category_path|add_to_url:category.slug %}
+                        {% include 'children.html' %}
+                {% endwith %}
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+{% endif %}
+
+
